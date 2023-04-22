@@ -145,7 +145,7 @@ if [ "$3" = "ai" ];then
 	cp=`echo $(($RANDOM % 300))`
 	cp=$((cp + 50))
 	s=$(($RANDOM % 2))
-	if [ $status -eq 1 ];then
+	if [ $s -eq 1 ];then
 		s=super
 		plus=$(($RANDOM % 500))
 		cp=$((cp + plus))
