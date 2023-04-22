@@ -2,7 +2,7 @@ name: release
 
 on:
   workflow_dispatch:
-
+permissions: write-all
 jobs:
   build:
     name: release binary
