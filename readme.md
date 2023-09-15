@@ -186,6 +186,16 @@ $ atr p "[chatgpt] post by openai chatgpt" -c --cid $cid --uri $uri
 ```sh
 # test : bot
 $ atr bot
+
+# notify read
+$ atr n --cid
+$ f=$HOME/.config/atr/notify_cid.txt;cat $f |tail -n 1000 >! $f.back;mv $f.back $f
+```
+
+```sh
+# x) curbing double mention and reply
+# cron : * * * * * atr bot
+# cron : * */1 * * * atr bot -m true
 ```
 
 ```sh
@@ -194,6 +204,16 @@ $ atr img-upload ~/img.png
 $ atr img-post $text -l $link
 
 $ link=`atr img-upload ~/icloud/icon/ai_circle.png|jq -r .blob.ref.'"$link"'`;atr img-post test -l $link
+```
+
+```sh
+# timeline bot
+$ atr bot-tl
+
+# timeline
+$ atr ss -s
+# post
+$ atr ss -d
 ```
 
 ### ref

@@ -119,6 +119,7 @@ pub struct BaseUrl {
     pub record_delete: String,
     pub session_create: String,
     pub timeline_get: String,
+    pub timeline_author: String,
     pub upload_blob: String,
     pub update_handle: String,
     pub account_create: String,
@@ -150,6 +151,7 @@ pub fn url(s: &str) -> String {
         record_list: "com.atproto.repo.listRecords".to_string(),
         session_create: "com.atproto.server.createSession".to_string(),
         timeline_get: "app.bsky.feed.getTimeline".to_string(),
+        timeline_author: "app.bsky.feed.getAuthorFeed".to_string(),
         like: "app.bsky.feed.like".to_string(),
         repost: "app.bsky.feed.repost".to_string(),
         follow: "app.bsky.graph.follow".to_string(),
@@ -172,6 +174,7 @@ pub fn url(s: &str) -> String {
         "record_delete" => t.to_string() + &baseurl.record_delete,
         "session_create" => t.to_string() + &baseurl.session_create,
         "timeline_get" => t.to_string() + &baseurl.timeline_get,
+        "timeline_author" => t.to_string() + &baseurl.timeline_get,
         "upload_blob" => t.to_string() + &baseurl.upload_blob,
         "account_create" => t.to_string() + &baseurl.account_create,
         "update_handle" => t.to_string() + &baseurl.update_handle,
@@ -247,9 +250,11 @@ pub struct Notifications {
     pub cid: String,
     pub author: Author,
     pub reason: String,
+    //pub reasonSubject: String,
     pub record: Record,
     pub isRead: bool,
     pub indexedAt: String,
+    //pub labels: Labels,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -262,12 +267,18 @@ pub struct Author {
     pub handle: String,
     pub avatar: Option<String>,
     pub viewer: Viewer,
-    pub labels: Labels,
+    //pub labels: Labels,
 }
 
 #[derive(Serialize, Deserialize)]
 #[allow(non_snake_case)]
 pub struct Labels {
+    pub src: Option<String>,
+    pub uri: Option<String>,
+    pub cid: Option<String>,
+    pub val: Option<String>,
+    pub cts: Option<String>,
+    pub neg: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -283,13 +294,17 @@ pub struct Viewer {
     pub muted: bool,
 }
 
-
-
 #[derive(Serialize, Deserialize)]
 #[allow(non_snake_case)]
 pub struct Record {
+    //pub langs: Option<Langs>,
     pub text: Option<String>,
     pub createdAt: String,
+}
+
+#[derive(Serialize, Deserialize)]
+#[allow(non_snake_case)]
+pub struct Langs {
 }
 
 #[derive(Serialize, Deserialize)]
@@ -310,6 +325,7 @@ pub struct Post {
     pub reason: Option<String>,
     pub indexedAt: String,
     pub replyCount: i32,
+    pub postCount: Option<i32>,
     pub repostCount: i32,
     pub likeCount: i32,
 }
@@ -345,22 +361,49 @@ pub struct Handle {
 //    pub did: String
 //}
 
+//#[derive(Serialize, Deserialize)]
+//pub struct Labels {
+//}
+//
+//#[derive(Serialize, Deserialize)]
+//pub struct Viewer {
+//    pub muted: bool,
+//    pub blockedBy: bool,
+//}
+
 #[derive(Serialize, Deserialize)]
 #[allow(non_snake_case)]
 pub struct Profile {
     pub did: String,
     pub handle: String,
-    //pub followCount: String,
-    //pub followersCount: String,
-    //pub postsCount: String,
-    //pub creator: String,
-    //pub indexedAt: String,
-    //pub avatar: Option<String>,
-    //pub banner: Option<String>,
-    //pub displayName: Option<String>,
-    //pub description: Option<String>,
+    pub followsCount: Option<i32>,
+    pub followersCount: Option<i32>,
+    pub postsCount: i32,
+    pub indexedAt: Option<String>,
+    pub avatar: Option<String>,
+    pub banner: Option<String>,
+    pub displayName: Option<String>,
+    pub description: Option<String>,
+    pub viewer: Viewer,
+    pub labels: Labels,
 }
 
+//
+//  "did": "did:plc:uqzpqmrjnptsxezjx4xuh2mn",
+//  "handle": "syui.ai",
+//  "displayName": "syui",
+//  "avatar": "https://cdn.bsky.social/imgproxy/aSbqSRpqXSxkXBRpRODZUEquXcWOdaBXiwtPcMvmXZM/rs:fill:1000:1000:1:0/plain/bafkreid6kcc5pnn4b3ar7mj6vi3eiawhxgkcrw3edgbqeacyrlnlcoetea@jpeg",
+//  "banner": "https://cdn.bsky.social/imgproxy/OAuuvXAKZpWzPm6pCcAC0R07npMexrWoOiNELnW_iw0/rs:fill:3000:1000:1:0/plain/bafkreih4axx4k243yd5zbj5zrehzm6cramzl6tsygubqgwzagxar7re34u@jpeg",
+//  "followsCount": 1083,
+//  "followersCount": 1044,
+//  "postsCount": 3925,
+//  "indexedAt": "2023-04-15T08:30:29.809Z",
+//  "viewer": {
+//    "muted": false,
+//    "blockedBy": false
+//  },
+//  "labels": []
+//
 #[derive(Debug, Deserialize)]
 #[allow(unused)]
 pub struct Deep {
