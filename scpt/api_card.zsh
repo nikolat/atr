@@ -600,14 +600,14 @@ function battle_server(){
 	fi
 
 	echo "----"
-	cp_plus=$(($RANDOM % 100 + 1))
+	cp_plus=$(($RANDOM % 30 + 1))
 	cp=$((cp_ii + cp_plus))
 	body="level up!"
 	echo "${body} ✧${cp}(+${cp_plus})"
 	tmp=`curl -sL -X PATCH -H "Content-Type: application/json" -d "{\"cp\":$cp,\"token\":\"$token\"}" $url/cards/$fav`
 	tmp=`curl -X PATCH -H "Content-Type: application/json" -d "{\"server_at\":\"$server_at_n\",\"token\":\"$token\"}" -s $url/users/$uid`
 
-	ran_s=`echo $((RANDOM % 100))`
+	ran_s=`echo $((RANDOM % 60))`
 	if [ $ran_s -eq 0 ];then
 		echo "----"
 		thd=`echo $((RANDOM % 12))`
