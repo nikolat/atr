@@ -305,7 +305,7 @@ function battle_raid(){
 		cp_i=`echo $data_u |jq -r "sort_by(.cp) | reverse|.[0].cp"`
 		cid=`echo $data_u |jq -r "sort_by(.cp) | reverse|.[0].id"`
 		skill=`echo $data_u |jq -r "sort_by(.cp) | reverse|.[0].skill"`
-		ss=$(($RANDOM % 2))
+		ss=$(($RANDOM % 4))
 		sss=$(($RANDOM % 3))
 		ss_post=$(($RANDOM % 2))
 		if [ "$skill" = "critical" ] && [ $ss -eq 1 ];then
